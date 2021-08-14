@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "axul_mobile",
-    "slug": "axul_mobile",
+    "name": "Axul Calendar",
+    "slug": "axul_calendar",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon-round.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -20,11 +20,7 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "package": "com.ncostamagna.axul_mobile"
+      "package": "com.ncostamagna.axul_calendar"
     },
     "web": {
       "favicon": "./assets/favicon.png"

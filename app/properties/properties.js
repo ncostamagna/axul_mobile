@@ -1,0 +1,1 @@
+export const BASE_BLUE = "#0052CF";

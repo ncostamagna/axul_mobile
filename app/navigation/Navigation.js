@@ -8,12 +8,12 @@ import ContactStack from './ContactStack';
 import EventStack from './EventStack';
 import ProfileStack from './ProfileStack';
 import ConfigStack from './ConfigStack';
+import {BASE_BLUE} from '../properties/properties'
 
-const COLOR_BLUE = "#0052CF";
 const OPTION_SCREEN = {
     headerTitleAlign: 'center',
     headerStyle: {
-        backgroundColor: COLOR_BLUE,
+        backgroundColor: BASE_BLUE,
       },
     headerTintColor: "#FFFFFF"
 };
@@ -30,7 +30,7 @@ export default function Navigation() {
             tabBarIcon: ({color, focused}) => screenIcon(route, focused, color),
             tabBarLabel:({focused, color}) => screenText(route,color, focused),
             inactiveTintColor: "#484848",
-            activeTintColor: COLOR_BLUE,
+            activeTintColor: BASE_BLUE,
             headerTitleStyle: { alignSelf: 'center' },
             tabBarStyle:{
                 paddingTop: 5,
@@ -143,7 +143,7 @@ function screenText(router, color, focused){
 
 const styles = StyleSheet.create({
     activeColor: {
-      color: COLOR_BLUE,
+      color: BASE_BLUE,
       fontSize: 11,
       paddingBottom: 4,
     },
