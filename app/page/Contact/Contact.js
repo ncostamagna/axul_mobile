@@ -1,71 +1,36 @@
 import React, {useState, useRef} from "react";
 import { View, StyleSheet } from "react-native"
-import { Input, Button } from "react-native-elements";
-import SelectDropdown from 'react-native-select-dropdown'
 import {MONTHS} from '../../properties/labels'
 import {BASE_BLUE} from '../../properties/properties'
+import {Button} from '../../components/Button'
+import {DropDown, Input} from '../../components/Input'
 
 export default function Contact() {
 
   let [contactSeacrh, setContactSearch] = useState({name: '', month: 0})
   const dropdownRef = useRef({});
 
-
   return (
     <View style={styles.pTop}>
-      <View  style={styles.row}>    
-        <View style={styles.inputWrap}>
-          <Input style={styles.inputdate} placeholder="Nombre"value={contactSeacrh.name} onChangeText={value => {setContactSearch({...contactSeacrh, ...{name: value}})} }/>
-        </View>
-        </View>
-        <View  style={styles.row}>    
-        <View style={styles.inputWrap}>
-          <SelectDropdown  data={MONTHS} ref={dropdownRef} 
-          buttonTextStyle={styles.inputdate} 
-          defaultButtonText={MONTHS[0]}
-          buttonStyle={styles.inputdate}
-          dropdownStyle={styles.dropdown}
-          rowStyle={styles.dropdown}
-          
-          onSelect={(selectedItem, index) => {
-            setContactSearch({...contactSeacrh, ...{month:index}})
-            console.log(selectedItem, index)
-          }}
-          />
-        </View>
-      </View>
-      <View  style={styles.row}>    
-        <View style={styles.inputWrap}>
-          <Button
-          title="Buscar"
-          color={BASE_BLUE}
-          containerStyle={styles.button}
-          />
-        </View>
-      </View>
-      <View  style={styles.row}>  
-        <View style={styles.inputWrap}>
-          <Button
-          title="Agregar"
-          color={BASE_BLUE}
-          containerStyle={styles.button}
-          />
-        </View>
-      </View>
-      <View  style={styles.row}>  
-        <View style={styles.inputWrap}>
-          <Button
-          title="Limpiar"
-          color={BASE_BLUE}
-          onPress={()=>{ 
+      <Input
+            title="Nombre"
+            value={contactSeacrh.name}
+            onChangeText={value => {setContactSearch({...contactSeacrh, ...{name: value}})} }
+            />
+    <DropDown data={MONTHS} 
+              ref={dropdownRef} 
+              defaultValue={MONTHS[0]}
+              onSelect={(selectedItem, index) => {
+                setContactSearch({...contactSeacrh, ...{month:index}})
+                console.log(selectedItem, index)
+              }} />
+     <Button isRow={true} title="Buscar"/>
+     <Button isRow={true} title="Agregar"/>
+     <Button isRow={true} title="Limpiar" onPress={()=>{ 
             console.log(contactSeacrh)
             setContactSearch({name: '', month: 0})
             dropdownRef.current.reset() 
-          }}
-          containerStyle={styles.button}
-          />
-        </View>
-      </View>
+      }} />
     </View>
   )
 }

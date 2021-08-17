@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native"
-import { Input, Button } from "react-native-elements";
+import { Input } from '../../components/Input'
+import { Button } from '../../components/Button'
 
 export default function Login(props) {
   
@@ -12,23 +13,22 @@ export default function Login(props) {
   return (
       <View  style={styles.formContainer}>    
       <Input    
-            placeholder="User"
-            />
+        title="User"
+      />
       <Input
-        placeholder="Password"
+        title="Password"
       />
 
-        <Button
+      <Button
         title="Login"
-        color="#841584"
-        containerStyle={styles.btnContainerLogin}
+        isRow={true}
         onPress={onSubmit}
-        />
-        <Button
+      />
+      <Button
+        isRow={true}
         title="Create Account"
-        color="#841584"
-        containerStyle={styles.btnContainerLogin}
-        />
+      />
+
       </View>
   )
 }
