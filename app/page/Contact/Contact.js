@@ -1,73 +1,40 @@
 import React, {useState, useRef} from "react";
-import { View, StyleSheet } from "react-native"
 import {MONTHS} from '../../properties/labels'
-import {BASE_BLUE} from '../../properties/properties'
-import {Button} from '../../components/Button'
-import {DropDown, Input} from '../../components/Input'
+import { Button, Input, Stack, Center, Select, CheckIcon } from 'native-base';
+import { Ionicons } from '@expo/vector-icons';
+import ContactSearch from './ContactSearch'
+import ContactList from './ContactList'
 
 export default function Contact() {
 
   let [contactSeacrh, setContactSearch] = useState({name: '', month: 0})
-  const dropdownRef = useRef({});
+  let [contacts, setContacts] = useState([{name: 'Nahuel', lastName: 'Costamagna', birthday: '11/10/1989', nickName: "Nahue", phone:"", template:"", type: ""},
+  {name: 'Celeste', lastName: 'Costamagna', birthday: '20/11/1999', nickName: "Celes", phone:"", template:"", type: ""},
+  {name: 'Azul', lastName: 'Costamagna', birthday: '14/01/2015', nickName: "Azul", phone:"", template:"", type: ""},
+  {name: 'Nahuel', lastName: 'Costamagna', birthday: '11/10/1989', nickName: "Nahue", phone:"", template:"", type: ""},
+  {name: 'Celeste', lastName: 'Costamagna', birthday: '20/11/1999', nickName: "Celes", phone:"", template:"", type: ""},
+  {name: 'Azul', lastName: 'Costamagna', birthday: '14/01/2015', nickName: "Azul", phone:"", template:"", type: ""},
+  {name: 'Nahuel', lastName: 'Costamagna', birthday: '11/10/1989', nickName: "Nahue", phone:"", template:"", type: ""},
+  {name: 'Celeste', lastName: 'Costamagna', birthday: '20/11/1999', nickName: "Celes", phone:"", template:"", type: ""},
+  {name: 'Azul', lastName: 'Costamagna', birthday: '14/01/2015', nickName: "Azul", phone:"", template:"", type: ""},
+  {name: 'Nahuel', lastName: 'Costamagna', birthday: '11/10/1989', nickName: "Nahue", phone:"", template:"", type: ""},
+  {name: 'Celeste', lastName: 'Costamagna', birthday: '20/11/1999', nickName: "Celes", phone:"", template:"", type: ""},
+  {name: 'Azul', lastName: 'Costamagna', birthday: '14/01/2015', nickName: "Azul", phone:"", template:"", type: ""}])
+
+  let [operator, setOperator] = useState("S");
+
+  let app;
+  switch (operator) {
+    case "S":
+      app = <ContactSearch contactSeacrh={contactSeacrh} setContactSearch={setContactSearch} setOperator={setOperator}/>
+      break;
+    case "L":
+      app = <ContactList setOperator={setOperator} contacts={contacts} setContacts={setContacts}/>
+    default:
+      break;
+  }
 
   return (
-    <View style={styles.pTop}>
-      <Input
-            title="Nombre"
-            value={contactSeacrh.name}
-            onChangeText={value => {setContactSearch({...contactSeacrh, ...{name: value}})} }
-            />
-    <DropDown data={MONTHS} 
-              ref={dropdownRef} 
-              defaultValue={MONTHS[0]}
-              onSelect={(selectedItem, index) => {
-                setContactSearch({...contactSeacrh, ...{month:index}})
-                console.log(selectedItem, index)
-              }} />
-     <Button isRow={true} title="Buscar"/>
-     <Button isRow={true} title="Agregar"/>
-     <Button isRow={true} title="Limpiar" onPress={()=>{ 
-            console.log(contactSeacrh)
-            setContactSearch({name: '', month: 0})
-            dropdownRef.current.reset() 
-      }} />
-    </View>
+    app
   )
 }
-
-
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: "row"
-  },
-  inputWrap: {
-    flex: 1,
-    borderColor: "#cccccc",
-    marginBottom: 10
-  },
-  inputdate: {
-    alignSelf: 'stretch',
-    textAlign: 'center',
-    width: '100%',
-    marginBottom: -12,
-    color: BASE_BLUE
-  },
-  inputcvv: {
-
-    marginBottom: -12,
-    color: BASE_BLUE
-  },
-  pTop:{
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 30,
-  },
-  button: {
-    marginLeft: 10,
-    marginRight: 10
-  },
-  dropdown: {
-
-  }
-});
