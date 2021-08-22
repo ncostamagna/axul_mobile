@@ -2,8 +2,10 @@ import React, {useState, useRef} from "react";
 import {MONTHS} from '../../properties/labels'
 import { Button, Input, Stack, Center, Select, CheckIcon } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
+import Api from '../../utils/api'
 
-export default function Contact({contactSeacrh, setContactSearch, setOperator}) {
+export default function Contact({contactSeacrh, setContactSearch, setOperator, setContacts}) {
+  const api = new Api();
 
   return (
     <Center flex={1}>
@@ -26,7 +28,7 @@ export default function Contact({contactSeacrh, setContactSearch, setOperator}) 
             }}
           >
             {MONTHS.map((row, index) => (
-              <Select.Item label={row} value={index} />
+              <Select.Item key={index} label={row} value={index} />
             ))}
 
           </Select>
@@ -37,8 +39,15 @@ export default function Contact({contactSeacrh, setContactSearch, setOperator}) 
       <Stack space={3} direction={"row"}>
           <Button paddingLeft={5} paddingRight={5} colorScheme="blue" 
                   onPress={()=>{
-                    console.log("Boton")
-                    setOperator("L");
+                    api
+                      .getContacts()
+                      .then((response) => {
+                        setContacts(response.data.data)
+                        setOperator("L");
+                      })
+                      .catch((err) =>{
+                        console.log(err);
+                      })
                   }}>
             <Ionicons name="search" size={20} color="white" />
           </Button>

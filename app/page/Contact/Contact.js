@@ -8,25 +8,14 @@ import ContactList from './ContactList'
 export default function Contact() {
 
   let [contactSeacrh, setContactSearch] = useState({name: '', month: 0})
-  let [contacts, setContacts] = useState([{name: 'Nahuel', lastName: 'Costamagna', birthday: '11/10/1989', nickName: "Nahue", phone:"", template:"", type: ""},
-  {name: 'Celeste', lastName: 'Costamagna', birthday: '20/11/1999', nickName: "Celes", phone:"", template:"", type: ""},
-  {name: 'Azul', lastName: 'Costamagna', birthday: '14/01/2015', nickName: "Azul", phone:"", template:"", type: ""},
-  {name: 'Nahuel', lastName: 'Costamagna', birthday: '11/10/1989', nickName: "Nahue", phone:"", template:"", type: ""},
-  {name: 'Celeste', lastName: 'Costamagna', birthday: '20/11/1999', nickName: "Celes", phone:"", template:"", type: ""},
-  {name: 'Azul', lastName: 'Costamagna', birthday: '14/01/2015', nickName: "Azul", phone:"", template:"", type: ""},
-  {name: 'Nahuel', lastName: 'Costamagna', birthday: '11/10/1989', nickName: "Nahue", phone:"", template:"", type: ""},
-  {name: 'Celeste', lastName: 'Costamagna', birthday: '20/11/1999', nickName: "Celes", phone:"", template:"", type: ""},
-  {name: 'Azul', lastName: 'Costamagna', birthday: '14/01/2015', nickName: "Azul", phone:"", template:"", type: ""},
-  {name: 'Nahuel', lastName: 'Costamagna', birthday: '11/10/1989', nickName: "Nahue", phone:"", template:"", type: ""},
-  {name: 'Celeste', lastName: 'Costamagna', birthday: '20/11/1999', nickName: "Celes", phone:"", template:"", type: ""},
-  {name: 'Azul', lastName: 'Costamagna', birthday: '14/01/2015', nickName: "Azul", phone:"", template:"", type: ""}])
+  let [contacts, setContacts] = useState([])
 
   let [operator, setOperator] = useState("S");
 
   let app;
   switch (operator) {
     case "S":
-      app = <ContactSearch contactSeacrh={contactSeacrh} setContactSearch={setContactSearch} setOperator={setOperator}/>
+      app = <ContactSearch contactSeacrh={contactSeacrh} setContactSearch={setContactSearch} setOperator={setOperator} setContacts={setContacts}/>
       break;
     case "L":
       app = <ContactList setOperator={setOperator} contacts={contacts} setContacts={setContacts}/>

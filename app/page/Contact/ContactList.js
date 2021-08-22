@@ -8,7 +8,7 @@ export default function ContactList({contacts, setOperator}) {
 
     console.log(contacts)
     const renderItem = ({index,item}) => (
-        <Box>
+        <Box my={0} py={0}>
             <Pressable
                 key={index}
                 keyExtractor={index}
@@ -36,7 +36,7 @@ export default function ContactList({contacts, setOperator}) {
                       </Avatar>
                       <Stack space={2} width="100%" direction="column">
                       <Text width="100%" fontSize={20} paddingBottom={0} marginBottom={0} fontWeight="bold">
-                        {item.name} {item.lastName} 
+                        {item.firstname} {item.lastname} 
                       </Text>
                       <Text width="100%" paddingBottom={0} marginTop={0}>
                         {item.birthday} 
@@ -50,19 +50,22 @@ export default function ContactList({contacts, setOperator}) {
 
 
     return (
-        <Box width="100%"  bg= 'white' flex= {1} safeAreaTop>
-            <Stack  direction="row">
-            <Stack space={2}  direction="row" >
+        <Box width="100%"  bg= 'white' flex= {1} paddingBottom={0} marginBottom={0}>
+
+            <Stack  direction="row" bg='blue.100' my={0}>
+                <Stack space={2}  direction="row" my={0}>
                 <Button colorScheme="blue" onPress={() => {
                     setOperator("S");
-                }} marginX={5}>
-                    <Ionicons name="arrow-back" size={20} color="white" />
+                }} py={1} rounded={0}>
+                    <Ionicons name="arrow-back" size={30} color="white" />
                 </Button>
                 
-                <Heading my={1} size="lg">Lista de Contactos</Heading>
-            </Stack></Stack>
-          <Box  bg= 'white' safeArea flex= {1}>
+                <Heading paddingTop={1} size="md" fontWeight="normal">{contacts.length} contactos</Heading>
+            </Stack>
+        </Stack>
+          <Box  bg= 'white' flex= {1} my={0} py={0} >
             <SwipeListView
+                my={0} py={0}
                 data={contacts}
                 renderItem={renderItem}
                 rightOpenValue={-130}

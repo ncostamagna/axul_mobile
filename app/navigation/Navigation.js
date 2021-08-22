@@ -25,7 +25,6 @@ export default function Navigation() {
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="calendar-stack"
-
         screenOptions={({route}) => ({
             tabBarIcon: ({color, focused}) => screenIcon(route, focused, color),
             tabBarLabel:({focused, color}) => screenText(route,color, focused),
@@ -35,8 +34,7 @@ export default function Navigation() {
             tabBarStyle:{
                 paddingTop: 5,
                 height: 55
-            }
-            
+            },
         })}
       >
         <Tab.Screen 
