@@ -4,7 +4,7 @@ import { Button, Input, Stack, Center, Select, CheckIcon } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
 import Api from '../../utils/api'
 
-export default function Contact({contactSeacrh, setContactSearch, setOperator, setContacts}) {
+export default function ContactSearch({contactSeacrh, setContactSearch, setOperator, setContacts}) {
   const api = new Api();
 
   return (
@@ -35,9 +35,9 @@ export default function Contact({contactSeacrh, setContactSearch, setOperator, s
           
       </Stack>
     </Stack>
-    <Stack space={3} alignItems="center" mt={10}>
+    <Stack space={3} alignItems="center" mt={10}  w="90%" >
       <Stack space={3} direction={"row"}>
-          <Button paddingLeft={5} paddingRight={5} colorScheme="blue" 
+          <Button paddingLeft={5} paddingRight={5} colorScheme="blue" flexGrow={1}
                   onPress={()=>{
                     api
                       .getContacts()
@@ -49,16 +49,15 @@ export default function Contact({contactSeacrh, setContactSearch, setOperator, s
                         console.log(err);
                       })
                   }}>
-            <Ionicons name="search" size={20} color="white" />
+            <Ionicons name="search" size={24} color="white" />
           </Button>
-          <Button paddingLeft={5} paddingRight={5}  colorScheme="success">
-            <Ionicons name="add" size={20} color="white" />
+          <Button paddingLeft={5} paddingRight={5}  colorScheme="success" flexGrow={1}
+            onPress={()=> setOperator("A")}>
+            <Ionicons name="add" size={24} color="white" />
           </Button>
-          <Button paddingLeft={5} paddingRight={5} colorScheme="yellow"  
-                  onPress={()=>{ 
-                    console.log(contactSeacrh);
-                    setContactSearch({name: '', month: 0});}}>
-            <Ionicons name="refresh" size={20} color="black" />
+          <Button paddingLeft={5} paddingRight={5} colorScheme="yellow" flexGrow={1}
+                  onPress={()=> setContactSearch({name: '', month: 0})}>
+            <Ionicons name="refresh" size={24} color="black" />
           </Button>
       </Stack>
     </Stack>

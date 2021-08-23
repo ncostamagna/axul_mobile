@@ -1,41 +1,20 @@
-import React from "react";
-import { View, StyleSheet } from "react-native"
-import { Input, Button } from "react-native-elements";
-import SelectDropdown from 'react-native-select-dropdown'
+import React, {useState, useRef} from "react";
+import CalendarList from './CalendarList'
 
-export default function Calendar() {
+export default function Contact() {
+
+  let [contactSeacrh, setContactSearch] = useState({name: '', month: 0})
+
+  let [operator, setOperator] = useState("S");
+
+  let app;
+  switch (operator) {
+    case "S":
+      app = <CalendarList contactSeacrh={contactSeacrh} setContactSearch={setContactSearch} setOperator={setOperator}/>
+      break;
+  }
+
   return (
-      <View  style={styles.row}>    
-        <View style={styles.inputWrap}>
-          <Input style={styles.inputdate} placeholder="Password" />
-        </View>
-        <View style={styles.inputWrap}>
-          <Input style={styles.inputdate} />
-        </View>
-        
-      </View>
+    app
   )
 }
-
-const styles = StyleSheet.create({
-  row: {
-    flex: 1,
-    flexDirection: "row"
-  },
-  inputWrap: {
-    flex: 1,
-    borderColor: "#cccccc",
-    borderBottomWidth: 1,
-    marginBottom: 10
-  },
-  inputdate: {
-    fontSize: 14,
-    marginBottom: -12,
-    color: "#6a4595"
-  },
-  inputcvv: {
-    fontSize: 14,
-    marginBottom: -12,
-    color: "#6a4595"
-  }
-});

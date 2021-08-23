@@ -4,6 +4,7 @@ import { Button, Input, Stack, Center, Select, CheckIcon } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
 import ContactSearch from './ContactSearch'
 import ContactList from './ContactList'
+import ConcactView from './ContactView'
 
 export default function Contact() {
 
@@ -19,6 +20,10 @@ export default function Contact() {
       break;
     case "L":
       app = <ContactList setOperator={setOperator} contacts={contacts} setContacts={setContacts}/>
+      break;
+    case "A":
+      app = <ConcactView setOperator={setOperator} contacts={contacts} setContacts={setContacts}/>
+      break;
     default:
       break;
   }
