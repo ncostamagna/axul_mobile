@@ -2,10 +2,10 @@ import React, {useState, useRef} from "react";
 import {MONTHS} from '../../properties/labels'
 import { Button, Input, Stack, Center, Select, CheckIcon } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
-import Api from '../../utils/api'
+import {Contacts} from '../../utils/api'
 
 export default function ContactSearch({contactSeacrh, setContactSearch, setOperator, setContacts}) {
-  const api = new Api();
+  const contactApi = new Contacts();
 
   return (
     <Center flex={1}>
@@ -39,8 +39,8 @@ export default function ContactSearch({contactSeacrh, setContactSearch, setOpera
       <Stack space={3} direction={"row"}>
           <Button paddingLeft={5} paddingRight={5} colorScheme="blue" flexGrow={1}
                   onPress={()=>{
-                    api
-                      .getContacts()
+                    contactApi
+                      .get()
                       .then((response) => {
                         setContacts(response.data.data)
                         setOperator("L");

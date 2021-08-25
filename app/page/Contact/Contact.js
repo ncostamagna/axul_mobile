@@ -9,8 +9,7 @@ import ConcactView from './ContactView'
 export default function Contact() {
 
   let [contactSeacrh, setContactSearch] = useState({name: '', month: 0})
-  let [contacts, setContacts] = useState([])
-
+  let [contacts, setContacts] = useState([]);
   let [operator, setOperator] = useState("S");
 
   let app;
