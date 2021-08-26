@@ -1,13 +1,15 @@
 import React, { useState, useRef } from "react";
-import { MONTHS, DAYS, EVENT_YEARS } from '../../properties/labels'
+import { MONTHS, DAYS, EVENT_YEARS, HOURS, MINUTES } from '../../properties/labels'
 import { Button, Input, Stack, Center, Select, ScrollView, CheckIcon, TextArea } from 'native-base';
-import { AntDesign, Fontisto, Ionicons } from '@expo/vector-icons';
+import { AntDesign, Fontisto } from '@expo/vector-icons';
 import { Events } from '../../utils/api'
 import { SEARCH } from '../../properties/properties'
 
-export default function EventView({ contactSeacrh, setContactSearch, setOperator, setEvents }) {
+export default function EventView({ setOperator}) {
   const eventApi = new Events();
-  let [event, setEvent] = useState({ id: '', title: '', description: '', day: '', month: '', year: 0})
+  
+  var d = new Date();
+  let [event, setEvent] = useState({ id: '', title: '', description: '', day: '', month: (d.getMonth() + 1), year: 0, hours:'', minutes:''})
 
   return (
     <ScrollView
@@ -26,7 +28,7 @@ export default function EventView({ contactSeacrh, setContactSearch, setOperator
 
             <TextArea placeholder="Description" mt={5}
               value={event.description}
-              onChange={(e) => { setEvent({ ...event, ...{ description: e.currentTarget.value } }) }} />
+              onChangeText={value => { setEvent({ ...event, ...{ description: value } }) }}/>
 
             <Stack space={2} direction={"row"} mt={5}>
               <Select
@@ -80,33 +82,64 @@ export default function EventView({ contactSeacrh, setContactSearch, setOperator
               </Select>
 
             </Stack>
+            <Stack space={2} direction={"row"} mt={5}>
+              <Select
+                selectedValue={event.hours}
+                minWidth={150}
+                accessibilityLabel="Hora"
+                placeholder="Hora"
+                onValueChange={(itemValue) => setEvent({ ...event, ...{ hours: itemValue } })}
+                _selectedItem={{
+                  bg: "cyan.600",
+                  endIcon: <CheckIcon size={4} />,
+                }}
+              >
+                {HOURS.map((row, index) => (
+                  <Select.Item key={index} label={row} value={index} />
+                ))}
+
+              </Select>
+              <Select
+                selectedValue={event.minutes}
+                flexGrow={1}
+                accessibilityLabel="Minutos"
+                placeholder="Minutos"
+                onValueChange={(itemValue) => setEvent({ ...event, ...{ minutes: itemValue } })}
+                _selectedItem={{
+                  bg: "cyan.600",
+                  endIcon: <CheckIcon size={4} />,
+                }}
+              >
+                {MINUTES.map((row, index) => (
+                  <Select.Item key={index} label={row} value={index} />
+                ))}
+
+              </Select>
+
+          
+            </Stack>
           </Stack>
         </Stack>
         <Stack space={3} alignItems="center" my={10} w="90%"  >
           <Stack space={2} direction={"row"}>
             <Button paddingLeft={5} paddingRight={5} colorScheme="success" flexGrow={1}
               onPress={() => {
-                console.log(contact)
+                console.log(event)
 
-                const { firstname, lastname, nickname, phone } = contact
-                let year = '1900'
-                if (contact.year != "") {
-                  year = EVENT_YEARS[contact.year]
-                }
-
-                let month = contact.month.toString().padStart(2, "0");
-                let birthday = `${year}-${month}-${DAYS[contact.day]}`
-                let c = { firstname, lastname, nickname, birthday, phone }
+                const { title, description, day, month, year, hours, minutes } = event
+                const date = `${DAYS[day]}/${month}/${EVENT_YEARS[year]}`
+                const time = `${HOURS[hours]}:${MINUTES[minutes]}`
+                const e = { title, description, date,  time}
 
                 eventApi
-                  .create(c)
+                  .create(e)
                   .then((response) => {
                     setOperator(SEARCH);
                   })
                   .catch((err) => {
                     console.log(err);
                   })
-                console.log(c)
+                console.log(e)
               }}>
               <Fontisto name="save" size={24} color="white" />
             </Button>

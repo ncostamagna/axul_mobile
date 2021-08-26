@@ -44,7 +44,9 @@ export default function CalendarList({reminders}) {
                               </Button>
 
                       avatarURL = 'https://icon-library.com/images/calendar-512_1965.png'
-                      subtitle = `${dateFormmat(item.date,true)} ${item.time} (${item.days} Dias)`
+
+                      let days = item.days==0?'':`(${item.days} Dias)`
+                      subtitle = `${dateFormmat(item.date,true)} ${days}`
                       break;
                   }
 
@@ -54,10 +56,10 @@ export default function CalendarList({reminders}) {
                           }}/>
                         <Stack space={2} direction="column" flexGrow={1}>
                           
-                          <Text width="100%" fontSize={20} paddingBottom={0} marginBottom={0} fontWeight="bold">
+                          <Text width="100%" fontSize={item.days==0?23:20} paddingBottom={0} marginBottom={0} fontWeight={item.days==0?"bold":""}>
                               {item.title}
                           </Text>
-                          <Text width="100%" fontSize={15} paddingBottom={0} marginBottom={0} >
+                          <Text width="100%" fontSize={item.days==0?18:15} paddingBottom={0} marginBottom={0} >
                               {subtitle}
                           </Text>
                         </Stack>

@@ -16,7 +16,7 @@ export default function Event() {
       app = <EventSearch eventSeacrh={eventSeacrh} setEventSearch={setEventSearch} setOperator={setOperator} setEvents={setEvents}/>
       break;
     case ADD:
-      app = <EventView setOperator={setOperator} events={events} setEvents={setEvents}/>
+      app = <EventView setOperator={setOperator}/>
       break;
     case LOAD:
       app = <Spinner />

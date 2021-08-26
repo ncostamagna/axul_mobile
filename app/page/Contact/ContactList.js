@@ -7,8 +7,6 @@ import {SEARCH} from '../../properties/properties'
 import dateFormmat from '../../utils/date'
 
 export default function ContactList({contacts, setOperator}) {
-
-    console.log(contacts)
     const renderItem = ({index,item}) => (
         <Box my={0} py={0}>
             <Pressable
@@ -32,7 +30,7 @@ export default function ContactList({contacts, setOperator}) {
                   <HStack width="100%" px={4}>
                     <HStack space={2} width="100%" alignItems="center">
                       <Avatar source={{
-                          uri:'https://media-exp1.licdn.com/dms/image/C4E03AQFGgbyfpdzgUg/profile-displayphoto-shrink_200_200/0/1627136379180?e=1634774400&v=beta&t=PjF9_3WdskLjEHUdO15vVjnSCx9oFdxWRpy8Gk87Uog'
+                          uri: item.photo != ""?item.photo != "":"https://icon-library.com/images/foto-icon/foto-icon-3.jpg"
                       }}>
                       <Text>{index}</Text>
                       </Avatar>

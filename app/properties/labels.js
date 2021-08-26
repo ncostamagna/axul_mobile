@@ -16,4 +16,11 @@ for(let i = 0; i < 5; i++){
     EVENT_YEARS.push((n + i).toString())
 }
 
-export {MONTHS, DAYS,YEARS, EVENT_YEARS};
+let HOURS = [];
+for(let i = 23; i >= 0; i--){
+    HOURS.push(i.toString().padStart(2, "0"))
+}
+
+let MINUTES = ['00', '15', '30', '45'];
+
+export {MONTHS, DAYS,YEARS, EVENT_YEARS,HOURS, MINUTES};
