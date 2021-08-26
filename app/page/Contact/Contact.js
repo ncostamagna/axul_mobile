@@ -5,23 +5,28 @@ import { Ionicons } from '@expo/vector-icons';
 import ContactSearch from './ContactSearch'
 import ContactList from './ContactList'
 import ConcactView from './ContactView'
+import { Spinner } from "../../components";
+import {LIST, LOAD, SEARCH, ADD} from '../../properties/properties'
 
 export default function Contact() {
 
   let [contactSeacrh, setContactSearch] = useState({name: '', month: 0})
   let [contacts, setContacts] = useState([]);
-  let [operator, setOperator] = useState("S");
+  let [operator, setOperator] = useState(SEARCH);
 
   let app;
   switch (operator) {
-    case "S":
+    case SEARCH:
       app = <ContactSearch contactSeacrh={contactSeacrh} setContactSearch={setContactSearch} setOperator={setOperator} setContacts={setContacts}/>
       break;
-    case "L":
+    case LIST:
       app = <ContactList setOperator={setOperator} contacts={contacts} setContacts={setContacts}/>
       break;
-    case "A":
+    case ADD:
       app = <ConcactView setOperator={setOperator} contacts={contacts} setContacts={setContacts}/>
+      break;
+    case LOAD:
+      app = <Spinner />
       break;
     default:
       break;

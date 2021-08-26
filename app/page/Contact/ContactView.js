@@ -3,6 +3,7 @@ import {MONTHS, DAYS, YEARS} from '../../properties/labels'
 import { Button, Input, Stack, Center, Select, ScrollView , CheckIcon, Avatar} from 'native-base';
 import { AntDesign, Fontisto, Ionicons } from '@expo/vector-icons';
 import {Contacts} from '../../utils/api'
+import {SEARCH} from '../../properties/properties'
 
 export default function ContactView({contactSeacrh, setContactSearch, setOperator, setContacts}) {
   const contactApi = new Contacts();
@@ -183,7 +184,7 @@ export default function ContactView({contactSeacrh, setContactSearch, setOperato
                    contactApi
                       .create(c)
                       .then((response) => {
-                        setOperator("S");
+                        setOperator(SEARCH);
                       })
                       .catch((err) =>{
                         console.log(err);
@@ -195,7 +196,7 @@ export default function ContactView({contactSeacrh, setContactSearch, setOperato
           <Button paddingLeft={5} paddingRight={5}  colorScheme="danger" flexGrow={1}>
             <AntDesign name="delete" size={24} color="white" />
           </Button>
-          <Button paddingLeft={5} paddingRight={5} colorScheme="yellow" flexGrow={1} onPress={() => setOperator("S") }>
+          <Button paddingLeft={5} paddingRight={5} colorScheme="yellow" flexGrow={1} onPress={() => setOperator(SEARCH) }>
             <AntDesign name="back" size={24} color="black" />
           </Button>
       </Stack>

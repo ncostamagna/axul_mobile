@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import {Box, Text,Pressable,Heading,IconButton,Button, HStack, Avatar,    useToast, Stack } from 'native-base';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { Ionicons } from '@expo/vector-icons';
+import {SEARCH} from '../../properties/properties'
+import dateFormmat from '../../utils/date'
 
 export default function ContactList({contacts, setOperator}) {
 
@@ -13,7 +15,7 @@ export default function ContactList({contacts, setOperator}) {
                 key={index}
                 keyExtractor={index}
                 onPress={() => {
-                    setOperator("S");
+                    setOperator(SEARCH);
                 }}
                 alignItems= 'center'
                 bg="white"
@@ -39,7 +41,7 @@ export default function ContactList({contacts, setOperator}) {
                         {item.firstname} {item.lastname} 
                       </Text>
                       <Text width="100%" paddingBottom={0} marginTop={0}>
-                        {item.birthday} 
+                        {dateFormmat(item.birthday,false, "sort")} ({item.days} Dias)
                       </Text>
                       </Stack>
                     </HStack>
@@ -55,7 +57,7 @@ export default function ContactList({contacts, setOperator}) {
             <Stack  direction="row" bg='blue.100' my={0}>
                 <Stack space={2}  direction="row" my={0}>
                 <Button colorScheme="blue" onPress={() => {
-                    setOperator("S");
+                    setOperator(SEARCH);
                 }} py={1} rounded={0}>
                     <Ionicons name="arrow-back" size={30} color="white" />
                 </Button>

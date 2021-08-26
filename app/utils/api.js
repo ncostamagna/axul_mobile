@@ -28,15 +28,17 @@
     };
   
     get = (params) => {
+      console.log(`GET /contacts`)
       return this.init().get("/contacts", { params: params });
     };
 
     getByDays = (days) => {
-      console.log(`/contacts?days=${days}`)
+      console.log(`GET /contacts?days=${days}`)
       return this.init().get(`/contacts?days=${days}`);
     };
 
     create = (body) => {
+      console.log(`POST /contacts`)
       return this.init().post("/contacts", body);
     }
 
@@ -70,14 +72,17 @@
     };
   
     get = (params) => {
+      console.log(`GET /events`)
       return this.init().get("/events", { params: params });
     };
 
     getByDays = (days) => {
+      console.log(`GET /events?days=${days}`)
       return this.init().get(`/events?days=${days}`);
     };
 
     create = (body) => {
+      console.log(`POST /events`)
       return this.init().post("/events", body);
     }
 

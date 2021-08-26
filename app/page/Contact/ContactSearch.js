@@ -1,8 +1,9 @@
-import React, {useState, useRef} from "react";
+import React from "react";
 import {MONTHS} from '../../properties/labels'
 import { Button, Input, Stack, Center, Select, CheckIcon } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
 import {Contacts} from '../../utils/api'
+import {ADD, LIST, LOAD} from '../../properties/properties'
 
 export default function ContactSearch({contactSeacrh, setContactSearch, setOperator, setContacts}) {
   const contactApi = new Contacts();
@@ -39,11 +40,12 @@ export default function ContactSearch({contactSeacrh, setContactSearch, setOpera
       <Stack space={3} direction={"row"}>
           <Button paddingLeft={5} paddingRight={5} colorScheme="blue" flexGrow={1}
                   onPress={()=>{
+                    setOperator(LOAD);
                     contactApi
                       .get()
                       .then((response) => {
                         setContacts(response.data.data)
-                        setOperator("L");
+                        setOperator(LIST);
                       })
                       .catch((err) =>{
                         console.log(err);
@@ -52,7 +54,7 @@ export default function ContactSearch({contactSeacrh, setContactSearch, setOpera
             <Ionicons name="search" size={24} color="white" />
           </Button>
           <Button paddingLeft={5} paddingRight={5}  colorScheme="success" flexGrow={1}
-            onPress={()=> setOperator("A")}>
+            onPress={()=> setOperator(ADD)}>
             <Ionicons name="add" size={24} color="white" />
           </Button>
           <Button paddingLeft={5} paddingRight={5} colorScheme="yellow" flexGrow={1}

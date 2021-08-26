@@ -2,6 +2,7 @@ import React from 'react';
 import {ScrollView, VStack, HStack,Avatar,Text, Stack, Button } from 'native-base';
 import { Linking } from 'react-native';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
+import dateFormmat from '../../utils/date'
 
 export default function CalendarList({reminders}) {
 
@@ -15,9 +16,8 @@ export default function CalendarList({reminders}) {
       >
         <VStack>
                 {reminders.map((item) => {
-                  let row;
-                  let avatarURL;
-                  let button;
+                  let row, avatarURL, button, subtitle;
+                  console.log(item)
 
                   switch (item.eventType) {
                     case 'C':
@@ -33,7 +33,9 @@ export default function CalendarList({reminders}) {
                         button = <Button colorScheme="success" px={3} rounded={90} onPress={() => {Linking.openURL(`whatsapp://send?${message}&phone=${item.phone}`)}}>
                                   <Ionicons name="logo-whatsapp" size={20} color="white" />
                                 </Button>
-                        break;
+                      subtitle = `${dateFormmat(item.date,false, "sort")} (${item.days} Dias)`
+
+                      break;
                     case 'E':
                       button = <Button colorScheme="primary" px={3} rounded={90} onPress={() => {
 
@@ -42,6 +44,7 @@ export default function CalendarList({reminders}) {
                               </Button>
 
                       avatarURL = 'https://icon-library.com/images/calendar-512_1965.png'
+                      subtitle = `${dateFormmat(item.date,true)} ${item.time} (${item.days} Dias)`
                       break;
                   }
 
@@ -55,7 +58,7 @@ export default function CalendarList({reminders}) {
                               {item.title}
                           </Text>
                           <Text width="100%" fontSize={15} paddingBottom={0} marginBottom={0} >
-                              {item.date} {item.time}
+                              {subtitle}
                           </Text>
                         </Stack>
                         {button}

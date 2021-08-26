@@ -1,9 +1,16 @@
 
 
-export default function(value, withTimes = false) {
+export default function(value, withTimes = false, format = "full") {
+    console.log(value)
     let date = value.split("T")[0];
     date = date.split("-");
-    date = `${date[2]}/${date[1]}/${date[0]}`
+
+    if (format == "sort"){
+        date = `${date[2]}/${date[1]}`
+    }else{
+        date = `${date[2]}/${date[1]}/${date[0]}`
+    }
+    
     if (!withTimes)
         return date
 

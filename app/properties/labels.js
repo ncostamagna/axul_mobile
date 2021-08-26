@@ -10,4 +10,10 @@ const n = new Date().getFullYear();
 for(let i = n; i > (n - 100); i--){
     YEARS.push(i.toString())
 }
-export {MONTHS, DAYS,YEARS};
+
+let EVENT_YEARS = [];
+for(let i = 0; i < 5; i++){
+    EVENT_YEARS.push((n + i).toString())
+}
+
+export {MONTHS, DAYS,YEARS, EVENT_YEARS};
