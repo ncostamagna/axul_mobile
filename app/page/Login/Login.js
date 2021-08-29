@@ -1,27 +1,45 @@
 import React, {useState} from "react";
 import { Button, Input, Stack, Center } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
+import {Users} from '../../utils/api'
 
 export default function Login(props) {
   
+  const userApi = new Users();
   const {setUser} = props
   const [show, setShow] = useState(false)
+  const [login, setLogin] = useState({username:'', password: ''})
 
   const handleClick = () => setShow(!show)
-  const onSubmit = () => setUser({name: "Nahuel"})
+  const onSubmit = () => {
+    console.log(login);
+    userApi.login({username: login.username, password: login.password})
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((err) =>{
+      console.log(err);
+    })
+    //setUser({name: "Nahuel"})
+  }
 
   return (
     <Center flex={1}>
      <Stack space={2}  w="90%" >
         <Stack space={2} direction={"column"}>
-            <Input placeholder="Usuario" mt={5} />
+            <Input placeholder="Usuario" mt={5} 
+              value={login.username}
+              onChangeText={value => {setLogin({...login, ...{username: value}})} }
+              />
             <Input placeholder="Contraseña"  type={show ? "text" : "password"}
               InputRightElement={
                 <Button ml={1} roundedLeft={0} roundedRight="md" onPress={handleClick}  colorScheme="blue">
                   <Ionicons name={show?"eye-off":"eye"} size={20} color="white" />
                 </Button>
               }
-            />
+              value={login.password}
+              onChangeText={value => {setLogin({...login, ...{password: value}})} }
+              />
         </Stack>
       </Stack>
       <Stack space={2} alignItems="center" mt={10}>

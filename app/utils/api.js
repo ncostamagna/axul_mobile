@@ -88,4 +88,48 @@
 
   }
 
-  export {Contacts, Events}
+  class Users {
+    constructor() {
+      this.api_token = null;
+      this.client = null;
+      this.api_url = "http://ec2-52-23-228-226.compute-1.amazonaws.com:8082";
+    }
+  
+    init = () => {
+      this.api_token = "MI TOKEN"
+  
+      let headers = {
+        Accept: "application/json",
+      };
+  
+      if (this.api_token) {
+        headers.Authorization = `Bearer ${this.api_token}`;
+      }
+  
+      this.client = axios.create({
+        baseURL: this.api_url,
+        timeout: 31000,
+        headers: headers,
+      });
+  
+      return this.client;
+    };
+  
+    get = (params) => {
+      console.log(`GET /users`)
+      return this.init().get("/users", { params: params });
+    };
+
+    login = (body) => {
+      console.log(`POST /users/login`)
+      return this.init().post("/users/login", body);
+    };
+
+    create = (body) => {
+      console.log(`POST /users`)
+      return this.init().post("/users", body);
+    }
+
+  }
+
+  export {Contacts, Events, Users}
