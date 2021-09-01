@@ -1,11 +1,11 @@
 import React from "react";
 import { MONTHS } from '../../properties/labels'
-import { Button, Input, Stack, Center, Select, CheckIcon } from 'native-base';
+import { Button, Input, Stack, Center, Select, CheckIcon, Checkbox } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
 import { Events } from '../../utils/api'
-import { ADD, SEARCH, LOAD } from '../../properties/properties'
+import { ADD, LIST, LOAD } from '../../properties/properties'
 
-export default function EventSearch({ eventSeacrh, setEventSearch, setOperator, setEvents }) {
+export default function EventList({ eventSeacrh, setEventSearch, setOperator, setEvents }) {
     const eventApi = new Events();
 
     return (
@@ -33,7 +33,13 @@ export default function EventSearch({ eventSeacrh, setEventSearch, setOperator, 
                         ))}
 
                     </Select>
-
+                    
+                    <Checkbox.Group accessibilityLabel="choose values" >
+                        <Checkbox value="expired" my={2}>
+                        Expirado
+                        </Checkbox>
+                    </Checkbox.Group>
+                    
                 </Stack>
             </Stack>
             <Stack space={3} alignItems="center" mt={10} w="90%" >
@@ -47,7 +53,7 @@ export default function EventSearch({ eventSeacrh, setEventSearch, setOperator, 
                                     let { data } = response.data
                                     setEvents(data)
                                     console.log(data)
-                                    setOperator(SEARCH);
+                                    setOperator(LIST);
                                 })
                                 .catch((err) => {
                                     console.log(err);

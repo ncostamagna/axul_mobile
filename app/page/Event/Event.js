@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import EventSearch from './EventSearch'
 import EventView from './EventView'
+import EventList from './EventList'
 import { Spinner } from "../../components";
-import {SEARCH, LOAD, ADD} from '../../properties/properties'
+import {SEARCH, LOAD, ADD, LIST} from '../../properties/properties'
 
 export default function Event() {
 
@@ -17,6 +18,9 @@ export default function Event() {
       break;
     case ADD:
       app = <EventView setOperator={setOperator}/>
+      break;
+    case LIST:
+      app = <EventList setOperator={setOperator} events={events}/>
       break;
     case LOAD:
       app = <Spinner />
