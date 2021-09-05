@@ -4,6 +4,7 @@ import { Button, Input, Stack, Center, Select, CheckIcon } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
 import {Contacts} from '../../utils/api'
 import {ADD, LIST, LOAD} from '../../properties/properties'
+import error from '../../utils/error'
 
 export default function ContactSearch({contactSeacrh, setContactSearch, setOperator, setContacts}) {
   const contactApi = new Contacts();
@@ -42,13 +43,13 @@ export default function ContactSearch({contactSeacrh, setContactSearch, setOpera
                   onPress={()=>{
                     setOperator(LOAD);
                     contactApi
-                      .get()
+                      .get(contactSeacrh)
                       .then((response) => {
                         setContacts(response.data.data)
                         setOperator(LIST);
                       })
                       .catch((err) =>{
-                        console.log(err);
+                        error(err);
                       })
                   }}>
             <Ionicons name="search" size={24} color="white" />

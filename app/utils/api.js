@@ -27,9 +27,22 @@
       return this.client;
     };
   
-    get = (params) => {
-      console.log(`GET /contacts`)
-      return this.init().get("/contacts", { params: params });
+    get = (contact) => {
+      const {name, month} = contact
+      let path = "";
+
+      if (name != ""){
+        path = path==""?"?":`${path}&`
+        path = `${path}name=${name}`
+      }
+
+      if (month != 0){
+        path = path ==""?"?":`${path}&`
+        path = `${path}month=${month}`;
+      }
+
+      console.log(`GET /contacts${path}`)
+      return this.init().get(`/contacts${path}`);
     };
 
     getByDays = (days) => {

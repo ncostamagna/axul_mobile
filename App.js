@@ -5,7 +5,7 @@ import Login from './app/page/Login/Login'
 import { NativeBaseProvider, Text, Box } from 'native-base';
 import {Users} from './app/utils/api'
 import { Spinner } from './app/components';
-
+import error from './app/utils/error'
 
 
 export default function App() {
@@ -36,11 +36,7 @@ export default function App() {
         setLoading(false)
       })
       .catch(async (err) =>{
-        try {
-          await AsyncStorage.removeItem('token');
-          await AsyncStorage.removeItem('user');
-        }
-        catch(exception) {}
+        error(err)
         setLoading(false)
       })
       } catch(e) {}
