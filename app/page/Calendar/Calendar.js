@@ -2,8 +2,9 @@ import React, {useState, useEffect} from "react";
 import CalendarList from './CalendarList'
 import {Contacts, Events} from '../../utils/api'
 import dateFormat from '../../utils/date'
+import EventView from '../Event/EventView'
 import { Spinner } from "../../components";
-import {LIST, LOAD} from '../../properties/properties'
+import {LIST, LOAD, SEARCH, VIEW} from '../../properties/properties'
 
 export default function Calendar() {
 
@@ -11,8 +12,9 @@ export default function Calendar() {
   const eventApi = new Events();
 
   let [operator, setOperator] = useState(LOAD);
-  let [reminders, setReminders] = useState([])
-  
+  let [reminders, setReminders] = useState([]);
+  let [index, setIndex] = useState(0);
+
   useEffect(() => {
     let c = contactApi.getByDays(30);
     let e = eventApi.getByDays(30);
@@ -67,7 +69,21 @@ export default function Calendar() {
   let app;
   switch (operator) {
     case LIST:
-      app = <CalendarList reminders={reminders}/>
+    case SEARCH:
+      app = <CalendarList reminders={reminders} setOperator={setOperator} setIndex={setIndex}/>
+      break;
+    case VIEW:
+      let r = reminders[index]
+      switch (r.eventType) {
+        case 'E':
+          app = <EventView setOperator={setOperator} events={reminders} index={index} readOnly={1}/>
+          break;
+
+        default:
+          setOperator(LIST)
+          break;
+      }
+      
       break;
     case LOAD:
       app = <Spinner />

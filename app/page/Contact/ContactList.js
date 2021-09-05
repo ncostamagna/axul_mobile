@@ -3,17 +3,18 @@ import React, { useState } from 'react';
 import {Box, Text,Pressable,Heading,IconButton,Button, HStack, Avatar,    useToast, Stack } from 'native-base';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { Ionicons } from '@expo/vector-icons';
-import {SEARCH} from '../../properties/properties'
+import {EDIT, SEARCH} from '../../properties/properties'
 import dateFormmat from '../../utils/date'
 
-export default function ContactList({contacts, setOperator}) {
+export default function ContactList({contacts, setOperator, setIndex}) {
     const renderItem = ({index,item}) => (
         <Box my={0} py={0}>
             <Pressable
                 key={index}
                 keyExtractor={index}
                 onPress={() => {
-                    setOperator(SEARCH);
+                    setIndex(index);
+                    setOperator(EDIT);
                 }}
                 alignItems= 'center'
                 bg="white"

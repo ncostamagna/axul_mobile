@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button, Input, Stack, Center } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
 import {Users} from '../../utils/api'
@@ -9,19 +10,22 @@ export default function Login(props) {
   const {setUser} = props
   const [show, setShow] = useState(false)
   const [login, setLogin] = useState({username:'', password: ''})
-
   const handleClick = () => setShow(!show)
   const onSubmit = () => {
-    console.log(login);
     userApi.login({username: login.username, password: login.password})
-    .then((response) => {
-      console.log(response)
+    .then(async (response) => {
+      try {
+        const {token, user} = response.data.data
+        await AsyncStorage.setItem('token', token);
+        
+        const jsonValue = JSON.stringify(user)
+        await AsyncStorage.setItem('user', jsonValue)
+        setUser(user)
+      } catch (error) {}
     })
-    .catch((err) =>{
-      console.log(err);
-    })
-    setUser({name: "Nahuel"})
+    .catch(async (err) =>{})
   }
+
 
   return (
     <Center flex={1}>

@@ -1,7 +1,6 @@
 
 
 export default function(value, withTimes = false, format = "full") {
-    console.log(value)
     let date = value.split("T")[0];
     date = date.split("-");
 

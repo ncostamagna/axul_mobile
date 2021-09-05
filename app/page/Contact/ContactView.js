@@ -5,9 +5,28 @@ import { AntDesign, Fontisto, Ionicons } from '@expo/vector-icons';
 import {Contacts} from '../../utils/api'
 import {SEARCH} from '../../properties/properties'
 
-export default function ContactView({contactSeacrh, setContactSearch, setOperator, setContacts}) {
+export default function ContactView({contacts, index, setOperator, setContacts}) {
   const contactApi = new Contacts();
-  let [contact, setContact] = useState({id:'',firstname:'', lastname: '', phone:'', type:'', day:'', month: '', year:'', gender:'',nickname:'', template_id:'', photo:'',instagram:''})
+
+  let value = {id:'',firstname:'', lastname: '', phone:'', type:'', day:'', month: '', year:'', gender:'',nickname:'', template_id:'', photo:'',instagram:''}
+
+  if (contacts!=undefined){
+    value = contacts[index];
+
+    let datetime = contacts[index].birthday.split('T')
+    let date = datetime[0].split('-')
+
+    value.day = parseInt(date[2] - 1, 10)
+    value.month = parseInt(date[1], 10)
+
+    YEARS.forEach((year, i) => {
+      if (year==date[0]) {
+        value.year = i;
+      }
+    });
+  }
+
+  let [contact, setContact] = useState(value)
 
   return (
     <ScrollView
@@ -169,9 +188,12 @@ export default function ContactView({contactSeacrh, setContactSearch, setOperato
       <Stack space={2} direction={"row"}>
           <Button paddingLeft={5} paddingRight={5} colorScheme="success" flexGrow={1}
                   onPress={()=>{
-                   console.log(contact)
- 
-                   const {firstname, lastname, nickname, phone} = contact
+                   const {id, firstname, lastname, nickname, phone} = contact
+
+                   if (id != ''){
+                    return
+                  }
+
                    let year = '1900'
                    if (contact.year != "") {
                     year = YEARS[contact.year]
@@ -189,7 +211,6 @@ export default function ContactView({contactSeacrh, setContactSearch, setOperato
                       .catch((err) =>{
                         console.log(err);
                       })
-                  console.log(c)
                 }}>
             <Fontisto name="save" size={24} color="white" />
           </Button>

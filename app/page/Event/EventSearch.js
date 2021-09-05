@@ -34,7 +34,16 @@ export default function EventList({ eventSeacrh, setEventSearch, setOperator, se
 
                     </Select>
                     
-                    <Checkbox.Group accessibilityLabel="choose values" >
+                    <Checkbox.Group accessibilityLabel="choose values" 
+                    defaultValue={eventSeacrh.expired==1?['expired']:[]}
+                        onChange={value => {
+                            if (value.length < 1){
+                                setEventSearch({ ...eventSeacrh, ...{ expired: 0 } })
+                                return
+                            }
+
+                            setEventSearch({ ...eventSeacrh, ...{ expired: 1 } })
+                              }}>
                         <Checkbox value="expired" my={2}>
                         Expirado
                         </Checkbox>
@@ -46,9 +55,10 @@ export default function EventList({ eventSeacrh, setEventSearch, setOperator, se
                 <Stack space={3} direction={"row"}>
                     <Button paddingLeft={5} paddingRight={5} colorScheme="blue" flexGrow={1}
                         onPress={() => {
+                            console.log(eventSeacrh)
                             setOperator(LOAD);
                             eventApi
-                                .get()
+                                .get(eventSeacrh)
                                 .then((response) => {
                                     let { data } = response.data
                                     setEvents(data)
@@ -66,7 +76,7 @@ export default function EventList({ eventSeacrh, setEventSearch, setOperator, se
                         <Ionicons name="add" size={24} color="white" />
                     </Button>
                     <Button paddingLeft={5} paddingRight={5} colorScheme="yellow" flexGrow={1}
-                        onPress={() => setContactSearch({ name: '', month: 0 })}>
+                        onPress={() => setEventSearch({ name: '', month: 0 })}>
                         <Ionicons name="refresh" size={24} color="black" />
                     </Button>
                 </Stack>

@@ -71,9 +71,14 @@
       return this.client;
     };
   
-    get = (params) => {
-      console.log(`GET /events`)
-      return this.init().get("/events", { params: params });
+    get = (data) => {
+      let url = '/events'
+      if (data.expired == 1) {
+        url = `${url}?expired=1`
+      } 
+
+      console.log(`GET ${url}`)
+      return this.init().get(url);
     };
 
     getByDays = (days) => {
@@ -123,6 +128,12 @@
     login = (body) => {
       console.log(`POST /users/login`)
       return this.init().post("/users/login", body);
+    };
+
+    token = (userID, token) => {
+      let url = `/users/${userID}/token/${token}`
+      console.log(`POST ${url}`)
+      return this.init().get(url);
     };
 
     create = (body) => {

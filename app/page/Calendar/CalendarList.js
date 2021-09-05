@@ -3,8 +3,9 @@ import {ScrollView, VStack, HStack,Avatar,Text, Stack, Button } from 'native-bas
 import { Linking } from 'react-native';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
 import dateFormmat from '../../utils/date'
+import {VIEW} from '../../properties/properties'
 
-export default function CalendarList({reminders}) {
+export default function CalendarList({reminders, setIndex, setOperator}) {
 
 
 
@@ -15,14 +16,11 @@ export default function CalendarList({reminders}) {
         }} 
       >
         <VStack>
-                {reminders.map((item) => {
+                {reminders.map((item, index) => {
                   let row, avatarURL, button, subtitle;
-                  console.log(item)
-
                   switch (item.eventType) {
                     case 'C':
                       const message = `text=${item.nick}%20muuuy%20feliz%20cumple!!%0AEspero%20que%20lo%20disfrutes%20al%20maximo%20en%20tu%20dia!!%0ATe%20deseo%20lo%20mejor%20para%20este%20nuevo%20año!!%0AMuchos%20exitooos!!%20:)` 
-                      console.log(item.photo)
                       if (item.photo != "") {
                         avatarURL = item.photo;
                       }else{
@@ -38,7 +36,8 @@ export default function CalendarList({reminders}) {
                       break;
                     case 'E':
                       button = <Button colorScheme="primary" px={3} rounded={90} onPress={() => {
-
+                        setIndex(index)
+                        setOperator(VIEW)
                       }}>
                                 <AntDesign name="search1" size={20} color="white" />
                               </Button>
