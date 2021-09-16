@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getAuth} from './app/utils/storage'
 import Navigation from './app/navigation/Navigation';
 import Login from './app/page/Login/Login'
 import { NativeBaseProvider, Text, Box } from 'native-base';
@@ -16,21 +16,16 @@ export default function App() {
 
   useEffect(() => {
     let fn = async () => {
-      try {
-        const token = await AsyncStorage.getItem('token');
-        if (token == null) {
-          setLoading(false)
-          return
-        }
-  
-        const jsonValue = await AsyncStorage.getItem('user')
-        if (jsonValue == null){
-          setLoading(false)
-          return
-        }
-        const user = JSON.parse(jsonValue);
-  
-      userApi.token(user.id, token)
+ 
+      const {token,id} = await getAuth()
+
+      if (token == null || id == null){
+        error("User isn't logger");
+        setLoading(false);
+        return
+      }
+      
+      userApi.token(id, token)
       .then(async (response) => {
         setUser(user)
         setLoading(false)
@@ -39,7 +34,6 @@ export default function App() {
         error(err)
         setLoading(false)
       })
-      } catch(e) {}
     }
 
     fn();

@@ -8,15 +8,9 @@
     }
   
     init = () => {
-      this.api_token = "MI TOKEN"
-  
       let headers = {
         Accept: "application/json",
       };
-  
-      if (this.api_token) {
-        headers.Authorization = `Bearer ${this.api_token}`;
-      }
   
       this.client = axios.create({
         baseURL: this.api_url,
@@ -65,16 +59,11 @@
     }
   
     init = () => {
-      this.api_token = "MI TOKEN"
-  
+
       let headers = {
         Accept: "application/json",
       };
-  
-      if (this.api_token) {
-        headers.Authorization = `Bearer ${this.api_token}`;
-      }
-  
+
       this.client = axios.create({
         baseURL: this.api_url,
         timeout: 31000,
@@ -84,24 +73,26 @@
       return this.client;
     };
   
-    get = (data) => {
+    get = (data, headers) => {
       let url = '/events'
       if (data.expired == 1) {
         url = `${url}?expired=1`
       } 
 
       console.log(`GET ${url}`)
-      return this.init().get(url);
+      console.log(headers)
+      return this.init().get(url,{headers});
     };
 
-    getByDays = (days) => {
+    getByDays = (days, headers) => {
       console.log(`GET /events?days=${days}`)
-      return this.init().get(`/events?days=${days}`);
+      console.log(headers)
+      return this.init().get(`/events?days=${days}`, {headers});
     };
 
-    create = (body) => {
+    create = (body, headers) => {
       console.log(`POST /events`)
-      return this.init().post("/events", body);
+      return this.init().post("/events", body, {headers});
     }
 
   }

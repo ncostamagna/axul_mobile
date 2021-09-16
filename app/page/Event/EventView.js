@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { MONTHS, DAYS, EVENT_YEARS, HOURS, MINUTES } from '../../properties/labels'
 import { Button, Input, Stack, Center, Select, ScrollView, CheckIcon, TextArea } from 'native-base';
 import { AntDesign, Fontisto } from '@expo/vector-icons';
+import { getAuth } from "../../utils/storage";
 import { Events } from '../../utils/api'
 import { LIST, SEARCH } from '../../properties/properties'
 
@@ -159,7 +160,7 @@ export default function EventView({ setOperator, events, index, readOnly}) {
           <Stack space={2} direction={"row"}>
             <Button paddingLeft={5} paddingRight={5} colorScheme="success" flexGrow={1}
             display={readOnly?'none':'flex'}
-              onPress={() => {
+              onPress={async () => {
 
                 if (event.id != ''){
                   return
@@ -169,8 +170,9 @@ export default function EventView({ setOperator, events, index, readOnly}) {
                 const time = `${HOURS[hours]}:${MINUTES[minutes]}`
                 const e = { title, description, date,  time}
 
+                const header = await getAuth();
                 eventApi
-                  .create(e)
+                  .create(e, header)
                   .then((response) => {
                     setOperator(SEARCH);
                   })

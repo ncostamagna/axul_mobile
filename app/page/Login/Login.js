@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {storeAuth} from '../../utils/storage'
 import { Button, Input, Stack, Center } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
 import {Users} from '../../utils/api'
@@ -14,14 +14,12 @@ export default function Login(props) {
   const onSubmit = () => {
     userApi.login({username: login.username, password: login.password})
     .then(async (response) => {
-      try {
+
         const {token, user} = response.data.data
-        await AsyncStorage.setItem('token', token);
-        
-        const jsonValue = JSON.stringify(user)
-        await AsyncStorage.setItem('user', jsonValue)
+
+        await storeAuth(token, user)
         setUser(user)
-      } catch (error) {}
+    
     })
     .catch(async (err) =>{})
   }
