@@ -1,5 +1,6 @@
 import React, {useState, useRef} from "react";
 import {MONTHS, DAYS, YEARS} from '../../properties/labels'
+import { getAuth } from "../../utils/storage";
 import { Button, Input, Stack, Center, Select, ScrollView , CheckIcon, Avatar} from 'native-base';
 import { AntDesign, Fontisto, Ionicons } from '@expo/vector-icons';
 import {Contacts} from '../../utils/api'
@@ -187,10 +188,10 @@ export default function ContactView({contacts, index, setOperator, setContacts})
     <Stack space={3} alignItems="center" my={10}  w="90%"  >
       <Stack space={2} direction={"row"}>
           <Button paddingLeft={5} paddingRight={5} colorScheme="success" flexGrow={1}
-                  onPress={()=>{
-                   const {id, firstname, lastname, nickname, phone} = contact
-
-                   if (id != ''){
+                  onPress={async ()=>{
+                   const {id:idC, firstname, lastname, nickname, phone} = contact
+                   console.log("Ingresa");
+                   if (idC != ''){
                     return
                   }
 
@@ -203,8 +204,10 @@ export default function ContactView({contacts, index, setOperator, setContacts})
                    let birthday = `${year}-${month}-${DAYS[contact.day]}`
                    let c = { firstname, lastname, nickname, birthday, phone }
                   
+                   const {id, token} = await getAuth();
+
                    contactApi
-                      .create(c)
+                      .create(c, {id, token} )
                       .then((response) => {
                         setOperator(SEARCH);
                       })

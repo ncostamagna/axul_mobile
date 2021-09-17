@@ -1,5 +1,6 @@
 import React from "react";
 import {MONTHS} from '../../properties/labels'
+import { getAuth } from "../../utils/storage";
 import { Button, Input, Stack, Center, Select, CheckIcon } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
 import {Contacts} from '../../utils/api'
@@ -40,10 +41,12 @@ export default function ContactSearch({contactSeacrh, setContactSearch, setOpera
     <Stack space={3} alignItems="center" mt={10}  w="90%" >
       <Stack space={3} direction={"row"}>
           <Button paddingLeft={5} paddingRight={5} colorScheme="blue" flexGrow={1}
-                  onPress={()=>{
+                  onPress={async ()=>{
                     setOperator(LOAD);
+                    const {id, token} = await getAuth();
+
                     contactApi
-                      .get(contactSeacrh)
+                      .get(contactSeacrh, {id, token})
                       .then((response) => {
                         setContacts(response.data.data)
                         setOperator(LIST);

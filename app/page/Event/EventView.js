@@ -170,9 +170,9 @@ export default function EventView({ setOperator, events, index, readOnly}) {
                 const time = `${HOURS[hours]}:${MINUTES[minutes]}`
                 const e = { title, description, date,  time}
 
-                const header = await getAuth();
+                const {id, token} = await getAuth();
                 eventApi
-                  .create(e, header)
+                  .create(e, {id, token})
                   .then((response) => {
                     setOperator(SEARCH);
                   })

@@ -20,9 +20,9 @@ export default function Calendar() {
 
     let fn = async () => {
 
-      const header = await getAuth();
-      let c = contactApi.getByDays(30);
-      let e = eventApi.getByDays(30,header);
+      const {id, token} = await getAuth();
+      let c = contactApi.getByDays(30, {id, token});
+      let e = eventApi.getByDays(30,{id, token});
       Promise.all([c,e]).then(values => {
         let reminders = [];
         if (values.length != 2) {
@@ -80,6 +80,8 @@ export default function Calendar() {
     
         setReminders(reminders)
         setOperator(LIST)
+      }, reason => {
+        error(reason);
       });
 
       

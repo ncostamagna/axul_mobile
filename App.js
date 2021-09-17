@@ -17,7 +17,7 @@ export default function App() {
   useEffect(() => {
     let fn = async () => {
  
-      const {token,id} = await getAuth()
+      const {token,id,user} = await getAuth()
 
       if (token == null || id == null){
         error("User isn't logger");
@@ -27,6 +27,7 @@ export default function App() {
       
       userApi.token(id, token)
       .then(async (response) => {
+        console.log(response.data)
         setUser(user)
         setLoading(false)
       })

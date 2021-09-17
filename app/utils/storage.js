@@ -13,7 +13,7 @@ const storeAuth = async (token, user) => {
 }
 
 const getAuth = async () => {
-    let data = {token:null, id:null}
+    let data = {token:null, id:null, user:null}
     try {
         data.token = await AsyncStorage.getItem('token');
         if (data.token == null) {
@@ -24,8 +24,8 @@ const getAuth = async () => {
         if (jsonValue == null){
             return data
         }
-        const user = JSON.parse(jsonValue);
-        data.id = user.id
+        data.user = JSON.parse(jsonValue);
+        data.id = data.user.id
         return data
         } catch(e) {}
     return data

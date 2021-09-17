@@ -58,9 +58,9 @@ export default function EventList({ eventSeacrh, setEventSearch, setOperator, se
                         onPress={async () => {
                             console.log(eventSeacrh)
                             setOperator(LOAD);
-                            const header = await getAuth();
+                            const {id, token} = await getAuth();
                             eventApi
-                                .get(eventSeacrh, header)
+                                .get(eventSeacrh, {id, token})
                                 .then((response) => {
                                     let { data } = response.data
                                     setEvents(data)

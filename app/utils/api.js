@@ -21,7 +21,7 @@
       return this.client;
     };
   
-    get = (contact) => {
+    get = (contact, headers) => {
       const {name, month} = contact
       let path = "";
 
@@ -36,17 +36,17 @@
       }
 
       console.log(`GET /contacts${path}`)
-      return this.init().get(`/contacts${path}`);
+      return this.init().get(`/contacts${path}`, {headers});
     };
 
-    getByDays = (days) => {
+    getByDays = (days, headers) => {
       console.log(`GET /contacts?days=${days}`)
-      return this.init().get(`/contacts?days=${days}`);
+      return this.init().get(`/contacts?days=${days}`, {headers});
     };
 
-    create = (body) => {
+    create = (body, headers) => {
       console.log(`POST /contacts`)
-      return this.init().post("/contacts", body);
+      return this.init().post("/contacts", body, {headers});
     }
 
   }
