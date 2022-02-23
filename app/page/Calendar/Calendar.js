@@ -22,10 +22,11 @@ export default function Calendar() {
 
       const {id, token} = await getAuth();
       let c = contactApi.getByDays(30, {id, token});
-      let e = eventApi.getByDays(30,{id, token});
-      Promise.all([c,e]).then(values => {
+      //let e = eventApi.getByDays(30,{id, token});
+      Promise.all([c]).then(values => {
         let reminders = [];
-        if (values.length != 2) {
+        //if (values.length != 2) {
+        if (values.length != 1) {
           error(`Error, the length is ${values.length}`)
           return
         }
@@ -57,6 +58,7 @@ export default function Calendar() {
           })
         });
 
+        /*
         values[1].data.data.map((item) => {
           reminders.push({
             id: item.id,
@@ -66,7 +68,7 @@ export default function Calendar() {
             date: item.date,
             eventType: 'E'
           })
-        })
+        })*/
 
         reminders.sort((a,b) => {
           if (a.days > b.days)

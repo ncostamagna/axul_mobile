@@ -4,7 +4,7 @@
     constructor() {
       this.api_token = null;
       this.client = null;
-      this.api_url = "http://ec2-52-23-228-226.compute-1.amazonaws.com:8080";
+      this.api_url = "http://ec2-44-197-130-73.compute-1.amazonaws.com:8083";
     }
   
     init = () => {
@@ -55,7 +55,7 @@
     constructor() {
       this.api_token = null;
       this.client = null;
-      this.api_url = "http://ec2-52-23-228-226.compute-1.amazonaws.com:8081";
+      this.api_url = "http://ec2-44-197-130-73.compute-1.amazonaws.com:8082";
     }
   
     init = () => {
@@ -101,7 +101,7 @@
     constructor() {
       this.api_token = null;
       this.client = null;
-      this.api_url = "http://ec2-52-23-228-226.compute-1.amazonaws.com:8082";
+      this.api_url = "http://ec2-44-197-130-73.compute-1.amazonaws.com:8081";
     }
   
     init = () => {
